@@ -53,8 +53,8 @@ const SITE = {
   about: {
     heading: "An engineer who never put down the camera.",
     body: [
-      "Second year, Industrial & Production Engineering at BUET. I spend most of my time somewhere between a spreadsheet and a lens — engineering taught me a 400-person event is really a logistics problem wearing a nice outfit, and the creative side came first and never left.",
-      "I like owning the whole thing: the deck that wins the sponsor, the logo that goes on the backdrop, the booth that pulls the crowd, the photo that proves it happened, and the edit that makes people watch it twice.",
+      "Second-year Industrial & Production Engineering at BUET. I plan campus activations and then build everything they need — the sponsor deck, the identity, the booth, the photographs, the edit.",
+      "In practice that has meant 548 registrations for Marico's Over The Wall, the highest BUET has recorded and 4th nationally of 7,665; 730 people through a photobooth across a 19-hour activation; ৳100,000 from Eastern Bank and ৳200,000 from Rototech; 30+ designs for a 400-seat TEDxBUET; and the rulebook for a 105-entry research competition. The camera came first, though, and it never went away.",
     ],
     facts: [
       { k: "Based in",   v: "Dhaka, Bangladesh" },
