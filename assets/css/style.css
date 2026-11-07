@@ -455,12 +455,23 @@ body.menu-open .menu a { opacity: 1; transform: none; }
 .rail::before { left: 0;  background: linear-gradient(to right, var(--bg-raise), transparent); }
 .rail::after  { right: 0; background: linear-gradient(to left,  var(--bg-raise), transparent); }
 
+/* The scrolling happens on an inner element so the edge fades above
+   stay put instead of sliding away with the content. Drift is driven
+   by JS setting scrollLeft, not a CSS transform, so a drag, a swipe,
+   a trackpad or the keyboard can all take over mid-motion. */
+.rail__scroll {
+  overflow-x: auto; overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none; -ms-overflow-style: none;
+  cursor: grab;
+}
+.rail__scroll::-webkit-scrollbar { display: none; }
+.rail__scroll.dragging { cursor: grabbing; }
+.rail__scroll.dragging .etab { pointer-events: none; }
+
 .rail__track {
   display: flex; width: max-content; gap: 14px; padding-inline: 7px;
-  animation: slide 46s linear infinite;
 }
-.rail:hover .rail__track, .rail:focus-within .rail__track { animation-play-state: paused; }
-@keyframes slide { to { transform: translateX(-50%); } }
 
 .etab {
   position: relative; flex: none; margin: 0;
@@ -805,10 +816,15 @@ body.menu-open .menu a { opacity: 1; transform: none; }
 .lb__sub { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-top: 5px; }
 
 /* ---------- FILM ---------- */
-.films { display: grid; gap: 22px; grid-template-columns: 1fr; }
-@media (min-width: 860px) { .films { grid-template-columns: repeat(2, 1fr); align-items: start; } }
+/* Columns, not a grid. A 9:16 reel beside a 16:9 film in a two-column
+   grid forces both rows to the taller one, leaving a half-empty cell.
+   Columns pack independently, so each card is only as tall as itself —
+   the same approach the photo and design walls use. */
+.films { columns: 1; column-gap: 22px; }
+@media (min-width: 700px)  { .films { columns: 2; } }
+@media (min-width: 1100px) { .films { columns: 3; } }
 
-.film { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg-raise); transition: border-color .35s; }
+.film { break-inside: avoid; margin: 0 0 22px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--bg-raise); transition: border-color .35s; }
 .film:hover { border-color: var(--line-strong); }
 .film__frame { position: relative; background: #000; overflow: hidden; }
 .film__frame.r169 { aspect-ratio: 16/9; }

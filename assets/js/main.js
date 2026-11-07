@@ -263,16 +263,73 @@
       "</figure>";
     }).join("");
 
-    /* Printed twice so translateX(-50%) lands exactly on the seam. */
+    /* Printed twice: the second copy is what the loop wraps onto. */
     r.innerHTML = html + html;
-
-    /* One pass of the loop should take about the same time per tab
-       however many there are, otherwise 7 tabs crawl and 20 sprint. */
-    r.style.animationDuration = (items.length * 6.5) + "s";
 
     wireLightbox("#rail .etab", items.map(function (e) {
       return { src: "assets/img/events/" + e.img, title: e.name, sub: e.note || "" };
     }));
+
+    /* ---- the scroller ---- */
+    var vp = r.parentNode;                 // .rail__scroll
+    var paused = false, dragging = false;
+    var startX = 0, startLeft = 0, moved = 0;
+
+    function half() { return r.scrollWidth / 2; }
+
+    /* Wrap at either seam so it never hits a hard end, whether the
+       drift or the viewer got it there. */
+    vp.addEventListener("scroll", function () {
+      var h = half();
+      if (h <= 0) return;
+      if (vp.scrollLeft >= h) vp.scrollLeft -= h;
+      else if (vp.scrollLeft <= 0) vp.scrollLeft = h - 1;
+    });
+
+    if (!reduced) {
+      (function drift() {
+        if (!paused && !dragging) vp.scrollLeft += 0.45;
+        requestAnimationFrame(drift);
+      })();
+    }
+
+    function pause()  { paused = true; }
+    function resume() { paused = false; }
+    vp.addEventListener("pointerenter", pause);
+    vp.addEventListener("pointerleave", resume);
+    vp.addEventListener("focusin", pause);
+    vp.addEventListener("focusout", resume);
+    vp.addEventListener("touchstart", pause, { passive: true });
+    vp.addEventListener("touchend", function () { setTimeout(resume, 2500); }, { passive: true });
+
+    /* Mouse drag. Touch is left alone so it keeps native momentum. */
+    vp.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse" || e.button !== 0) return;
+      dragging = true; moved = 0;
+      startX = e.clientX; startLeft = vp.scrollLeft;
+      vp.classList.add("dragging");
+      try { vp.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    vp.addEventListener("pointermove", function (e) {
+      if (!dragging) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > moved) moved = Math.abs(dx);
+      vp.scrollLeft = startLeft - dx;
+    });
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      vp.classList.remove("dragging");
+      try { vp.releasePointerCapture(e.pointerId); } catch (err) {}
+    }
+    vp.addEventListener("pointerup", endDrag);
+    vp.addEventListener("pointercancel", endDrag);
+
+    /* A drag that ends on a tab shouldn't also open the lightbox. */
+    vp.addEventListener("click", function (e) {
+      if (moved > 6) { e.stopPropagation(); e.preventDefault(); }
+      moved = 0;
+    }, true);
   })();
 
   /* ============================================================

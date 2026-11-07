@@ -44,7 +44,9 @@ const SITE = {
     "Second-year Industrial & Production Engineering student at BUET. I design identities, shoot events and edit video — mostly for student organisations and campus campaigns in Dhaka.",
 
   cutout: "cutout.png",     // background-removed portrait, used in the hero
-  portrait: "portrait.jpg", // normal photo, used in About
+  portrait: "about.jpg",    // normal photo, used in About (the outdoor one;
+                            // portrait.jpg is the whiteboard shot the hero
+                            // cutout came from, so it repeated the hero)
   heroImage: "hero.jpg",    // faint background texture behind the hero
 
   /* ---------- 2. ABOUT ---------- */
@@ -233,17 +235,15 @@ const SITE = {
   photos: [
     { img: "river-gorge.jpg",    title: "The Gorge",             category: "Landscape",    location: "Kathmandu–Pokhara Highway, Nepal",   award: "1st Runner-up · Creatix Lens of Light" },
     { img: "dhaka-night.jpg",    title: "Dhaka After Rain",      category: "Street",       location: "Dhaka, Bangladesh",                  award: "" },
-    { img: "silhouette.jpg",     title: "Underpass",             category: "Street",       location: "",                                   award: "" },
-    { img: "holi.jpg",           title: "Colour Festival",       category: "Street",       location: "",                                   award: "" },
-    { img: "street-cat.jpg",     title: "Shared Breakfast",      category: "Street",       location: "",                                   award: "" },
-    { img: "city-sunset.jpg",    title: "Rush Hour, Gold Hour",  category: "Street",       location: "",                                   award: "" },
-    { img: "mackerel-sky.jpg",   title: "Mackerel Sky",          category: "Street",       location: "",                                   award: "" },
-    { img: "craftsman.jpg",      title: "The Welder",            category: "People",       location: "",                                   award: "" },
-    { img: "congregation.jpg",   title: "Before the Prayer",     category: "People",       location: "",                                   award: "" },
-    { img: "prayer-flags.jpg",   title: "Flags at Altitude",     category: "Landscape",    location: "",                                   award: "" },
-    { img: "mountain-sun.jpg",   title: "Ridge Light",           category: "Landscape",    location: "",                                   award: "" },
-    { img: "mountain-pano.jpg",  title: "The Range",             category: "Landscape",    location: "",                                   award: "" },
-    { img: "valley-mist.jpg",    title: "Valley, Hazed",         category: "Landscape",    location: "",                                   award: "" },
+    { img: "silhouette.jpg",     title: "Underpass",             category: "Street",       location: "BUET campus, Dhaka",                                   award: "" },
+    { img: "holi.jpg",           title: "Colour Festival",       category: "Street",       location: "BUET campus, Dhaka",                                   award: "" },
+    { img: "street-cat.jpg",     title: "Shared Breakfast",      category: "Street",       location: "BUET campus, Dhaka",                                   award: "" },
+    { img: "city-sunset.jpg",    title: "Rush Hour, Gold Hour",  category: "Street",       location: "Seoul, South Korea",                                   award: "" },
+    { img: "mackerel-sky.jpg",   title: "Mackerel Sky",          category: "Street",       location: "BUET campus, Dhaka",                                   award: "" },
+    { img: "craftsman.jpg",      title: "The Welder",            category: "People",       location: "BUET campus, Dhaka",                                   award: "" },
+    { img: "congregation.jpg",   title: "Before the Prayer",     category: "People",       location: "Al-Masjid an-Nabawi, Madina",                                   award: "" },
+    { img: "prayer-flags.jpg",   title: "Flags at Altitude",     category: "Landscape",    location: "Annapurna Base Camp, Nepal",                                   award: "" },
+    { img: "mountain-pano.jpg",  title: "The Range",             category: "Landscape",    location: "Nagarkot, Nepal",                                   award: "" },
     { img: "fisherman.jpg",      title: "Still Water",           category: "Landscape",    location: "Zero Point, Sylhet · Bangladesh–India border", award: "1st · Scintilla DSLR" },
     { img: "boats-dusk.jpg",     title: "Boats at Dusk",         category: "Landscape",    location: "",                                   award: "" },
     { img: "beach-boats.jpg",    title: "Beached",               category: "Landscape",    location: "",                                   award: "" },
@@ -253,8 +253,8 @@ const SITE = {
     { img: "karst-river.jpg",    title: "Limestone River",       category: "Landscape",    location: "",                                   award: "" },
     { img: "moonlight.jpg",      title: "Moon on Water",         category: "Landscape",    location: "",                                   award: "" },
     { img: "sky-tree.jpg",       title: "One Tree",              category: "Landscape",    location: "",                                   award: "" },
-    { img: "courtyard.jpg",      title: "Courtyard, Midday Sun", category: "Architecture", location: "Al-Masjid an-Nabawi, Medina",        award: "" },
-    { img: "arches.jpg",         title: "Arches",                category: "Architecture", location: "Al-Masjid an-Nabawi, Medina",        award: "" },
+    { img: "courtyard.jpg",      title: "Courtyard, Midday Sun", category: "Architecture", location: "Al-Masjid an-Nabawi, Madina",        award: "" },
+    { img: "arches.jpg",         title: "Arches",                category: "Architecture", location: "Al-Masjid an-Nabawi, Madina",        award: "" },
     { img: "mosque-detail.jpg",  title: "Inlay",                 category: "Architecture", location: "Sheikh Zayed Grand Mosque, Abu Dhabi", award: "" },
     { img: "mosque-floor.jpg",   title: "White Marble",          category: "Architecture", location: "Sheikh Zayed Grand Mosque, Abu Dhabi", award: "" },
     { img: "lalbagh.jpg",        title: "Lalbagh Fort",          category: "Architecture", location: "Lalbagh Fort, Dhaka",                award: "" },
@@ -298,6 +298,7 @@ const SITE = {
     },
     {
       title: "The Future is in Supply Chain",
+      url: "https://www.facebook.com/share/r/1JB38XmnJM/",
       poster: "iscea-supply-chain.jpg",
       vertical: true,
       year: "2026",
@@ -408,7 +409,7 @@ const SITE = {
       period: "Dec 2025 — Jan 2026",
       metrics: [
         { v: "20",  l: "teams" },
-        { v: "50%", l: "of the IPE '23 batch" },
+        { v: "50%", l: "of the IPE '24 batch" },
         { v: "8",   l: "industry judges" },
       ],
       points: [
