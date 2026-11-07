@@ -1,12 +1,3 @@
-# A GitHub Pages repo has to be public, and this PDF carries both
-# referees' personal mobile numbers and email addresses alongside your
-# own. It stays out of the repo until there is a version you are happy
-# to hand to a stranger. The file is still on your PC in assets/docs/.
-#
-# To publish it later: export a CV with "References available on
-# request", keep the same filename, delete the line below, and set
-# cvFile back to "Sabit-Hossain-CV.pdf" in assets/js/data.js.
-assets/docs/Sabit-Hossain-CV.pdf
 
 # Windows housekeeping
 Thumbs.db

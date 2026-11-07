@@ -520,12 +520,10 @@ const SITE = {
       { label: "Facebook", url: "https://www.facebook.com/t4h54n",                handle: "t4h54n" },
       { label: "Email",    url: "mailto:sabit.tahsan@gmail.com",                  handle: "sabit.tahsan@gmail.com" },
     ],
-    /* Blank hides the "Download CV" button entirely, rather than leaving
-       one that 404s. The PDF is still in assets/docs/ — it is just not
-       published, because it carries both referees' personal numbers.
-       Put the filename back here once you have a version you're happy
-       to hand to strangers. */
-    cvFile: "",
+    /* This PDF still lists both referees' mobile numbers and emails.
+       Sabit chose to publish it as-is. Set this back to "" to pull the
+       download button (and the file) off the site. */
+    cvFile: "Sabit-Hossain-CV.pdf",
   },
 
   /* ---------- 12. REFERENCES ----------
