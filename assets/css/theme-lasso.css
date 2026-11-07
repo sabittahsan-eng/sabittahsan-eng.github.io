@@ -1,0 +1,363 @@
+/* ============================================================
+   THEME — "Nelson Road"
+   A Ted Lasso / AFC Richmond skin. Loads AFTER style.css and
+   overrides it; the base file is never touched, so switching
+   back is just removing one <link>.
+
+   Three ideas, in order of how much they change:
+     1. Royal-blue kit palette instead of near-black editorial
+     2. BELIEVE yellow replaces amber as the accent
+     3. Football furniture — mown pitch, scarf, chalk, scoreboard
+   ============================================================ */
+
+:root {
+  /* --- the kit --- */
+  --bg:          #081734;   /* Nelson Road at night */
+  --bg-raise:    #0E2146;
+  --bg-raise-2:  #152B58;
+
+  --ink:         #F3F6FB;   /* kit white */
+  --ink-dim:     #AFBED8;
+  --ink-faint:   #8398BB;
+
+  --line:        rgba(243, 246, 251, 0.13);
+  --line-strong: rgba(243, 246, 251, 0.28);
+
+  /* the sign above the door */
+  --accent:      #FFCB2D;
+  --accent-soft: rgba(255, 203, 45, 0.15);
+  --accent-glow: rgba(255, 203, 45, 0.30);
+
+  /* supporting club colours */
+  --rich-red:    #E23B3B;
+  --pitch:       #3FA34D;
+  --chalk:       rgba(243, 246, 251, 0.30);
+
+  --font-kit:    "Oswald", "Arial Narrow", Impact, sans-serif;
+
+  --radius: 12px;
+}
+
+/* ---------- MOWN PITCH ----------
+   Alternating mower bands. Deliberately near-invisible — it
+   should register as texture, not as stripes.                */
+body {
+  background-color: var(--bg);
+  background-image:
+    repeating-linear-gradient(90deg,
+      rgba(255, 255, 255, 0.018) 0 72px,
+      rgba(0, 0, 0, 0.000)      72px 144px);
+  background-attachment: fixed;
+}
+
+::selection { background: var(--accent); color: #081734; }
+
+/* Vignette was tuned for a black page; on blue it reads as mud. */
+.vignette {
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(2, 8, 22, 0.60) 100%);
+}
+.grain { opacity: 0.035; }
+
+/* ---------- CHALK ----------
+   Section breaks become a touchline: one bright line, one ghost. */
+.section + .section {
+  border-top: 2px solid var(--chalk);
+  box-shadow: inset 0 4px 0 -3px rgba(243, 246, 251, 0.10);
+}
+
+/* ---------- SCOREBOARD TYPE ----------
+   Oswald for anything that behaves like a number on a board. */
+.eyebrow {
+  font-family: var(--font-kit);
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+}
+.eyebrow::before {
+  width: 30px; height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.h2 em { color: var(--accent); }
+
+/* ---------- HERO ---------- */
+.hero__bg::after {
+  background:
+    linear-gradient(to top,   var(--bg) 2%, rgba(8, 23, 52, 0.45) 48%, rgba(8, 23, 52, 0.88) 100%),
+    linear-gradient(to right, var(--bg) 0%, transparent 60%);
+}
+.hero__bg img { filter: grayscale(0.55) contrast(1.1) brightness(0.68) saturate(1.1); }
+.hero__figure img { filter: drop-shadow(0 30px 60px rgba(2, 8, 22, 0.75)) contrast(1.04); }
+
+.hero__name .line:nth-child(2) { color: var(--accent); opacity: 0.55; }
+.hero__name:hover .line:nth-child(2) { color: var(--accent); opacity: 1; }
+
+.hero__role { color: var(--accent); }
+
+/* ---------- THE SIGN ----------
+   Taped-up card. Markup lives in the page, not here.          */
+.believe {
+  display: flex;
+  justify-content: center;
+  padding: clamp(28px, 5vw, 46px) var(--gutter) clamp(10px, 2vw, 18px);
+}
+.believe__sign {
+  position: relative;
+  background: #F4CE3C;
+  color: #10244B;
+  font-family: var(--font-kit);
+  font-weight: 700;
+  font-size: clamp(1.4rem, 5.5vw, 3rem);
+  letter-spacing: clamp(.14em, 1.4vw, .3em);
+  text-transform: uppercase;
+  padding: clamp(12px, 2.4vw, 20px) clamp(26px, 6vw, 68px);
+  transform: rotate(-1.4deg);
+  box-shadow: 0 14px 34px rgba(2, 8, 22, 0.5);
+  /* torn top and bottom edge */
+  clip-path: polygon(0 4%, 12% 0, 38% 3%, 64% 0, 88% 4%, 100% 1%,
+                     100% 96%, 84% 100%, 55% 97%, 26% 100%, 8% 96%, 0 99%);
+}
+/* masking tape across the top-left corner */
+.believe__sign::before {
+  content: "";
+  position: absolute;
+  top: -11px; left: 12%;
+  width: clamp(44px, 9vw, 86px); height: 24px;
+  background: rgba(243, 246, 251, 0.34);
+  border-left: 1px solid rgba(243, 246, 251, 0.5);
+  border-right: 1px solid rgba(243, 246, 251, 0.5);
+  transform: rotate(-7deg);
+}
+
+/* ---------- EVENT RAIL ----------
+   Club colours on the band; the photos carry the rest.         */
+.rail {
+  background: #0B1F45;
+  border-top: 3px solid var(--accent);
+  border-bottom: 3px solid var(--rich-red);
+}
+.rail::before { background: linear-gradient(to right, #0B1F45, transparent); }
+.rail::after  { background: linear-gradient(to left,  #0B1F45, transparent); }
+.etab { background: var(--bg-raise-2); }
+.etab img { filter: saturate(1.05) contrast(1.03); }
+.etab:hover img { filter: saturate(1.15) contrast(1.05); }
+.etab__cap {
+  background: linear-gradient(to top, rgba(4, 12, 28, .95), rgba(4, 12, 28, .62) 55%, transparent);
+}
+.etab__n { font-family: var(--font-kit); font-weight: 500; letter-spacing: .04em; }
+.etab__r { color: var(--accent); }
+
+/* ---------- NAV ---------- */
+.nav.scrolled { background: rgba(8, 23, 52, 0.86); backdrop-filter: blur(14px); }
+.nav__links a:hover { background: rgba(243, 246, 251, 0.08); }
+.nav__links a span { font-family: var(--font-kit); font-weight: 500; }
+.menu { background: var(--bg-raise); }
+
+/* ---------- CARDS, TILES, GALLERY ----------
+   The editorial theme desaturated everything until hover. A
+   football theme should be loud, so images keep their colour. */
+.tile img,
+.pcard img,
+.dcard__media img,
+.achrow__ph img,
+.film__poster { filter: saturate(1.05) contrast(1.03); }
+.tile:hover img,
+.pcard:hover img,
+.achrow:hover .achrow__ph img { filter: saturate(1.15) contrast(1.05); }
+.portrait img { filter: grayscale(0.25) contrast(1.05); }
+.portrait:hover img { filter: grayscale(0) contrast(1); }
+
+.tile:hover, .pcard:hover { border-color: var(--accent); }
+.ph__hint { color: rgba(243, 246, 251, 0.24); }
+
+/* ---------- BUTTONS AS BADGES ---------- */
+.btn {
+  border-radius: 999px;
+  font-family: var(--font-kit);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn.gold { border-color: var(--accent); color: var(--accent); }
+.btn.gold:hover { background: var(--accent); color: #081734; border-color: var(--accent); }
+
+.filter { border-radius: 999px; font-family: var(--font-kit); letter-spacing: .1em; }
+.filter.on { background: var(--accent); color: #081734; border-color: var(--accent); }
+.chip { border-radius: 999px; }
+.chip.gold { border-color: rgba(255, 203, 45, 0.45); color: var(--accent); background: var(--accent-soft); }
+
+.showmore { border-radius: 999px; font-family: var(--font-kit); letter-spacing: .12em; text-transform: uppercase; }
+.showmore:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- TIMELINE AS A MATCH REPORT ---------- */
+.tl::before { background: var(--chalk); }
+.tnode__period { font-family: var(--font-kit); font-weight: 500; color: var(--accent); letter-spacing: .18em; }
+.tnode.now .tnode__dot { border-color: var(--pitch); }
+.tnode.now .tnode__dot::after { background: var(--pitch); box-shadow: 0 0 12px var(--pitch); }
+
+.met__v { font-family: var(--font-kit); font-weight: 700; color: var(--accent); }
+.mets { background: var(--line); }
+.met { background: var(--bg-raise); }
+
+.role__o { color: var(--accent); }
+.logo { background: rgba(243, 246, 251, 0.06); }
+.logo img { background: transparent; }
+.logo__m { font-family: var(--font-kit); font-weight: 500; color: var(--accent); }
+
+/* ---------- SCOREBOARD ----------
+   The achievements list is already called "Scoreboard". Make it
+   look like one: dark LED panel, kit numerals, yellow results.  */
+.ach {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: #061227;
+  overflow: hidden;
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.45);
+}
+.achrow { padding-inline: clamp(14px, 2.5vw, 26px); }
+.achrow + .achrow { border-top: 1px solid rgba(243, 246, 251, 0.08); }
+.achrow:hover { background: rgba(255, 203, 45, 0.06); }
+.achrow__t { font-family: var(--font-kit); font-weight: 500; letter-spacing: .01em; }
+.achrow__d { font-family: var(--font-kit); font-weight: 500; color: var(--accent); letter-spacing: .16em; }
+
+/* ---------- SKILLS AS A TEAM SHEET ---------- */
+.scard { background: var(--bg-raise); }
+.scard:hover { border-color: var(--accent); background: var(--bg-raise-2); }
+.scard__n { font-family: var(--font-kit); font-weight: 700; color: var(--accent); }
+.skill.core::before { background: var(--accent); box-shadow: 0 0 9px var(--accent-glow); }
+
+/* ---------- FILM ---------- */
+.film__play:hover span { background: var(--accent); border-color: var(--accent); color: #081734; }
+
+/* ---------- CONTACT + FOOT ---------- */
+.clink:hover .clink__h { color: var(--accent); }
+.foot { border-top: 2px solid var(--chalk); }
+.foot__in p { font-family: var(--font-kit); letter-spacing: .14em; }
+
+/* ---------- LIGHTBOX ---------- */
+.lb { background: rgba(4, 12, 28, 0.96); }
+.lb__sub { color: var(--accent); }
+
+/* ---------- PRELOADER ---------- */
+.preload { background: var(--bg); }
+.preload__pct { font-family: var(--font-kit); letter-spacing: .3em; color: var(--accent); }
+.preload__bar i { background: var(--accent); }
+
+/* ============================================================
+   PASS 2 — more of the club
+   ============================================================ */
+
+/* ---------- CLUB BAR ----------
+   Kit stripe along the bottom of the nav once you start scrolling. */
+.nav.scrolled { border-bottom-color: transparent; }
+.nav::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: linear-gradient(90deg,
+    var(--accent)  0 33.333%,
+    var(--rich-red) 33.333% 66.666%,
+    #F3F6FB        66.666% 100%);
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.nav.scrolled::after { opacity: 1; }
+
+.progress { height: 3px; background: linear-gradient(90deg, var(--rich-red), var(--accent)); }
+
+/* ---------- FLOODLIGHTS ----------
+   Two cones from above the stand. Sits over the hero photo but under
+   the text, which owns z-index 3.                                   */
+.hero::before {
+  content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 45% at 14% -12%, rgba(255, 203, 45, .11), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 86% -12%, rgba(255, 203, 45, .11), transparent 70%);
+}
+
+/* ---------- WHITEBOARD MARKER ----------
+   The emphasis word in every section title, highlighted the way Ted
+   writes on the locker-room board.                                  */
+.h2 em {
+  background: linear-gradient(transparent 66%, rgba(255, 203, 45, .30) 66%);
+  padding-inline: 2px;
+}
+
+/* ---------- KIT STRIPE on every eyebrow ---------- */
+.eyebrow::before {
+  width: 34px; height: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent) 0 50%, var(--rich-red) 50% 100%);
+}
+
+/* ---------- KICKOFF ----------
+   Centre circle behind the preloader, with the loading bar as the
+   halfway line through it.                                         */
+.preload__inner { position: relative; }
+.preload__inner::before {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: min(340px, 74vw); aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(243, 246, 251, .10);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.preload__bar { height: 2px; background: rgba(243, 246, 251, .18); }
+
+/* ---------- LIVE ----------
+   Current roles pulse like a match in progress.                     */
+.tnode.now .tnode__dot::after { animation: livePulse 2.2s ease-out infinite; }
+@keyframes livePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(63, 163, 77, .55); }
+  70%      { box-shadow: 0 0 0 8px rgba(63, 163, 77, 0); }
+}
+
+/* ---------- SCOREBOARD GLOW ---------- */
+.achrow__d { color: var(--accent); text-shadow: 0 0 10px rgba(255, 203, 45, .35); }
+
+/* ---------- TAPED UP ----------
+   The About portrait, stuck to the wall. The frame clips, so the
+   tape sits just inside the top edge rather than over it.           */
+.portrait::after {
+  content: ""; position: absolute; z-index: 3;
+  top: 10px; left: 12%;
+  width: clamp(58px, 12vw, 104px); height: 24px;
+  background: rgba(243, 246, 251, .30);
+  border-left: 1px solid rgba(243, 246, 251, .45);
+  border-right: 1px solid rgba(243, 246, 251, .45);
+  transform: rotate(-5deg);
+}
+
+/* ---------- THE NET ----------
+   Goal netting behind the contact section, faded in at the top and
+   out at the bottom so it never fights the type.                    */
+.contact::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient( 45deg, rgba(243, 246, 251, .055) 0 1px, transparent 1px 28px),
+    repeating-linear-gradient(-45deg, rgba(243, 246, 251, .055) 0 1px, transparent 1px 28px);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 82%, transparent);
+          mask-image: linear-gradient(to bottom, transparent, #000 42%, #000 82%, transparent);
+}
+.contact > .wrap { position: relative; z-index: 1; }
+
+/* ---------- LIGHTBOX CONTROLS ---------- */
+.lb__nav:hover, .lb__x:hover {
+  background: var(--accent); color: #081734; border-color: var(--accent);
+}
+
+/* ---------- FOOTER SCARF ---------- */
+.foot {
+  border-top: 0;
+  box-shadow: inset 0 3px 0 0 var(--accent);
+  background-image: repeating-linear-gradient(
+    115deg,
+    rgba(255, 203, 45, 0)     0 26px,
+    rgba(255, 203, 45, .07)  26px 34px,
+    rgba(226, 59, 59, .09)   34px 42px,
+    rgba(243, 246, 251, .05) 42px 50px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .believe__sign { transform: none; }
+  .tnode.now .tnode__dot::after { animation: none; }
+}
