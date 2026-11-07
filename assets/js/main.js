@@ -588,23 +588,70 @@
   })();
 
   /* ============================================================
-     FILM — the player only loads on click
+     VIDEOGRAPHY — the player only loads on click. Entries carry
+     either a youtubeId (embeds inline) or a url (opens out, for
+     platforms that refuse to be framed).
      ============================================================ */
-  (function films() {
+  (function videos() {
     var w = $("#films");
     if (!w) return;
-    w.innerHTML = (SITE.films || []).map(function (f) {
+
+    function body(f) {
+      var meta = [f.year, f.role].filter(Boolean).map(function (s) {
+        return "<span>" + escText(s) + "</span>";
+      }).join("");
+      return '<div class="film__body">' +
+        (meta ? '<div class="film__meta">' + meta + "</div>" : "") +
+        '<h3 class="film__title">' + escText(f.title) + "</h3>" +
+        (f.summary ? '<p class="film__sum">' + escText(f.summary) + "</p>" : "") +
+      "</div>";
+    }
+
+    w.innerHTML = (SITE.videos || []).map(function (f) {
+      var shape = f.vertical ? "r916" : "r169";
+
+      /* No embeddable id. Either it links out, or it is just the cover
+         frame — some platforms (Facebook reels) serve neither a player
+         nor a thumbnail to anyone who isn't logged in.                */
+      if (!f.youtubeId) {
+        /* Nothing to be tall for without a poster; an empty 9:16 panel
+           is just a void, so sit at 16:9 until a frame grab exists.   */
+        if (!f.poster) shape = "r169";
+
+        var pic = f.poster
+          ? '<img class="film__poster" src="assets/img/video/' + encodeURIComponent(f.poster) +
+            '" alt="" loading="lazy" decoding="async" onerror="this.remove()">'
+          : "";
+
+        if (f.url) {
+          var host = (f.url.match(/^https?:\/\/(?:www\.|m\.)?([^\/]+)/) || ["", "the source"])[1];
+          return '<article class="film rv">' +
+            '<a class="film__frame ' + shape + ' film__frame--link" href="' + esc(f.url) + '"' +
+              ' target="_blank" rel="noopener"' +
+              ' aria-label="Watch ' + esc(f.title) + ' on ' + esc(host) + ' (opens in a new tab)">' +
+              pic +
+              '<span class="film__play"><span>▶</span></span>' +
+              '<span class="film__ext mono">Watch on ' + escText(host) + " ↗</span>" +
+            "</a>" + body(f) +
+          "</article>";
+        }
+
+        /* Cover frame only. No play triangle — there is nothing to
+           click, and a dead control is worse than none.              */
+        return '<article class="film rv">' +
+          '<div class="film__frame ' + shape + ' film__frame--still">' +
+            pic +
+            '<span class="film__tag mono">Reel</span>' +
+          "</div>" + body(f) +
+        "</article>";
+      }
+
       return '<article class="film rv">' +
-        '<div class="film__frame ' + (f.vertical ? "r916" : "r169") + '" data-yt="' + esc(f.youtubeId) + '">' +
+        '<div class="film__frame ' + shape + '" data-yt="' + esc(f.youtubeId) + '">' +
           '<img class="film__poster" src="https://i.ytimg.com/vi/' + esc(f.youtubeId) +
             '/hqdefault.jpg" alt="" loading="lazy" decoding="async">' +
           '<button class="film__play" type="button" aria-label="Play ' + esc(f.title) + '"><span>▶</span></button>' +
-        "</div>" +
-        '<div class="film__body">' +
-          '<div class="film__meta"><span>' + esc(f.year) + "</span><span>" + esc(f.role || "") + "</span></div>" +
-          '<h3 class="film__title">' + esc(f.title) + "</h3>" +
-          '<p class="film__sum">' + esc(f.summary || "") + "</p>" +
-        "</div>" +
+        "</div>" + body(f) +
       "</article>";
     }).join("");
 
@@ -626,6 +673,8 @@
       var btn = e.target.closest(".film__play"); if (!btn) return;
       var frame = btn.closest(".film__frame");
       var id = frame.dataset.yt;
+      /* Link cards are plain anchors — let the browser handle them. */
+      if (!id) return;
 
       if (isLocal) {
         window.open("https://www.youtube.com/watch?v=" + encodeURIComponent(id), "_blank", "noopener");

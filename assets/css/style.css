@@ -827,6 +827,34 @@ body.menu-open .menu a { opacity: 1; transform: none; }
   transition: transform .35s var(--ease), background .35s, border-color .35s;
 }
 .film__play:hover span { transform: scale(1.1); background: var(--accent); border-color: var(--accent); color: #0A0A0B; }
+/* A card that opens the video elsewhere rather than embedding it. */
+.film__frame--link { display: block; cursor: pointer; }
+.film__frame--link .film__play { pointer-events: none; }
+.film__ext {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  padding: 26px 14px 12px;
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink);
+  background: linear-gradient(to top, rgba(6,6,7,.92), transparent);
+  text-align: center;
+}
+/* With no poster the frame would be an empty box, so give it a surface. */
+.film__frame--link:not(:has(img)) { background: var(--bg-raise-2); }
+.film__frame--link:hover { background: var(--bg-raise); }
+
+/* Cover frame with no player behind it. Marked so it doesn't read as
+   a still photograph sitting among the video cards. */
+.film__frame--still .film__poster { filter: none; }
+.film__tag {
+  position: absolute; top: 12px; left: 12px; z-index: 3;
+  padding: 5px 10px; border-radius: 999px;
+  font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(6, 6, 7, .62);
+  border: 1px solid var(--line-strong);
+  backdrop-filter: blur(6px);
+}
+
 .film__body { padding: 20px; }
 .film__meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-faint); display: flex; gap: 16px; flex-wrap: wrap; }
 .film__title { font-family: var(--font-display); font-size: clamp(1.4rem, 2.8vw, 2rem); line-height: 1.1; margin: 9px 0 7px; }

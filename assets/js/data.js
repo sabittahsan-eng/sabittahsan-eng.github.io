@@ -273,7 +273,13 @@ const SITE = {
   ],
 
   /* ---------- 6. FILM ---------- */
-  films: [
+  /* Two kinds of entry:
+       youtubeId — loads an inline player when you click it
+       url       — opens elsewhere in a new tab, for platforms that
+                   refuse to embed (Facebook reels, for one)
+     `poster` for a url entry is a frame grab you drop in
+     assets/img/video/. Without one the card shows a plain play panel. */
+  videos: [
     {
       title: "AdMaker 2025 — SkinZen",
       youtubeId: "b_HnTgOqtDE",
@@ -289,6 +295,14 @@ const SITE = {
       year: "2026",
       role: "Concept · Shoot · Edit (CapCut)",
       summary: "Campaign film documenting the Ignite activation that drove 548 BUET registrations.",
+    },
+    {
+      title: "The Future is in Supply Chain",
+      poster: "iscea-supply-chain.jpg",
+      vertical: true,
+      year: "2026",
+      role: "Edit",
+      summary: "Promo reel for the AIPE seminar with ISCEA Bangladesh, held at BUET in July.",
     },
   ],
 
@@ -394,7 +408,7 @@ const SITE = {
       period: "Dec 2025 — Jan 2026",
       metrics: [
         { v: "20",  l: "teams" },
-        { v: "50%", l: "of the IPE '24 batch" },
+        { v: "50%", l: "of the IPE '23 batch" },
         { v: "8",   l: "industry judges" },
       ],
       points: [
@@ -424,7 +438,7 @@ const SITE = {
      short: the initials shown until that file exists.             */
   roles: [
     { org: "BUET Photographic Society",         title: "Executive",                  period: "Apr 2026 —",          short: "PS",   logo: "buetps.png",       note: "Lead photographer across departmental events. Member since Jul 2025." },
-    { org: "IPE '24, BUET",                     title: "Class Representative",       period: "2-2 term",            short: "IPE",  logo: "ipe.png",          note: "Previously CR for the 1-1 term. Cohort communication and coordination." },
+    { org: "IPE '23, BUET",                     title: "Class Representative",       period: "2-2 term",            short: "IPE",  logo: "ipe.png",          note: "Previously CR for the 1-1 term. Cohort communication and coordination." },
     { org: "Infinix",                           title: "Campus Ambassador",          period: "Jul 2026 —",          short: "IX",   logo: "infinix.png",      note: "Ran a 50-response purchase-intent survey on campus." },
     { org: "InfoGram",                          title: "Campus Ambassador",          period: "May 2026 —",          short: "IG",   logo: "infogram.png",     note: "Brought on 4 media partners." },
     { org: "IEOM Society International",        title: "Student Member",             period: "Jun 2026 —",          short: "IEOM", logo: "ieom-intl.png",    note: "International chapter of the Industrial Engineering & Operations Management society." },

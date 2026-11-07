@@ -145,4 +145,5 @@ var IMG_SIZES = {
   "profile/hero.jpg": [1600,1200],
   "profile/og.jpg": [1200,1600],
   "profile/portrait.jpg": [1067,1600],
+  "video/iscea-supply-chain.jpg": [844,1500],
 };
